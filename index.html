@@ -13,7 +13,7 @@
 <body>
     <section id="home">
         <div class="text">
-            <div class="title">
+            <div class="title" data-parallax="100">
                 <h2>Jérémy PINCHON</h2>
                 <h1>Digital 3D Artist</h1>
             </div>
@@ -22,6 +22,8 @@
 
         <div class="background-effect">
             <canvas id="starfield"></canvas>
+
+            <div class="parallax-layer layer-glow" data-parallax="-300"></div>
         </div>
 
     </section>
@@ -30,13 +32,13 @@
         <span class="separator"></span>
         <h2>Featured Projects</h2>
 
-        <div class="slider-wrapper" id="slider-mount" style="width: 100%;"></div>
+        <div class="slider-wrapper" id="slider-mount" style="width: 100%;" data-parallax="20"></div>></div>
     </section>
 
     <section id="contact">
         <h2>Contact Me</h2>
 
-        <form action="https://api.web3forms.com/submit" method="POST">
+        <form action="https://api.web3forms.com/submit" method="POST" data-parallax="20">
             <input type="hidden" name="access_key" value="b830084b-fce3-4076-a6ef-19b82c4262c8">
 
             <label for="name">Name</label>
@@ -57,6 +59,7 @@
         <div class="cursor-dot"></div>
     </div>
 
+    <!-- slides -->
     <template id="slide-1">
         <div class="slide">Slide 1</div>
     </template>
@@ -228,6 +231,27 @@
     }
 
     generate_slider();
+
+    const items = [...document.querySelectorAll('[data-parallax]')];
+
+    function onScroll(){
+        const vh = innerHeight;
+        for (const el of items) {
+            const r = el.getBoundingClientRect();
+            const mid = (r.top + r.bottom) / 2;
+            const t = (mid - vh/2) / vh;           // -1..1 approx
+            const s = parseFloat(el.dataset.parallax || "20"); // px
+            el.style.transform = `translateY(${t * s}px)`;
+        }
+    }
+    addEventListener('scroll', onScroll, { passive:true });
+    addEventListener('resize', onScroll);
+    onScroll();
+
+    const layers = [
+        { el: document.querySelector('.layer-glow'), k: 0.02 },
+        { el: document.querySelector('.layer-noise'), k: 0.04 },
+    ];
 
 </script>
 
