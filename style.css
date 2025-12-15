@@ -273,7 +273,8 @@ section {
 }
 
 /* hover : on révèle le gradient + lift + glow */
-.h1-fx.gradient:hover .ch{
+.h1-fx.gradient:hover .ch,
+.h1-fx.gradient.h1-fx.auto-over .ch {
   color: transparent; /* laisse passer le gradient CLIPPÉ sur la lettre */
   background-position: 100% 50%;
   transform: translateY(-2px);
@@ -283,6 +284,24 @@ section {
   transition-delay: calc(var(--i) * 18ms);
 }
 
-.h1-fx.gradient:hover .ch:nth-child(odd){
+.h1-fx.gradient:hover .ch:nth-child(odd),
+.h1-fx.gradient.h1-fx.auto-over .ch:nth-child(odd) {
   transform: translateY(-3px);
+}
+
+/* mobile version */
+@media (max-width: 560px) {
+    #home .text {
+        margin: 0 12px;
+    }
+    #home .text h1 {
+        font-size: 2.5rem;
+    }
+
+    #home .text p {
+        text-align: center;
+    }
+    #contact form {
+        width: 80%;
+    }
 }

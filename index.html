@@ -84,13 +84,36 @@
 <script>
     const { PopUp, Navigator, ContextMenu, EditableText, DataTable, Toast, LoadingScreen, Slider } = Toolbox;
 
+    const MOBILE_VIEWPORT_WIDTH = 560;
+    var isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
+    // seuil (fraction de la hauteur viewport) pour déclencher l'effet "auto hover" en mobile
+    const MOBILE_AUTO_OVER_THRESHOLD = 0.4;
+
+    // debounce resize: n'exécute la logique lourde qu'une seule fois après la fin du resize
+    const DEBOUNCE_MS = 150;
+    let _resizeTimeout = null;
+    function _handleResizeFinal() {
+        resize();
+        onScroll();
+
+        isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
+
+        STAR_COUNT = isMobile ? 100 : 400;
+        stars = Array.from({ length: STAR_COUNT }, () => new Star());
+        animate();
+    }
+
+    window.addEventListener('resize', () => {
+        if (_resizeTimeout) clearTimeout(_resizeTimeout);
+        _resizeTimeout = setTimeout(_handleResizeFinal, DEBOUNCE_MS);
+    });
 
     const canvas = document.getElementById("starfield");
     const ctx = canvas.getContext("2d");
 
     let w, h;
     let stars = [];
-    const STAR_COUNT = 400;
+    let STAR_COUNT = isMobile ? 100 : 400;
     const mouse = { x: 0, y: 0 };
 
     function resize() {
@@ -153,7 +176,6 @@
             ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
             ctx.fill();
         }
-
     }
 
     stars = Array.from({ length: STAR_COUNT }, () => new Star());
@@ -163,7 +185,13 @@
         mouse.y = e.clientY;
     });
 
+    let stars_animation_frame = null;
+
     function animate() {
+        if (stars_animation_frame) {
+            cancelAnimationFrame(stars_animation_frame);
+        }
+        
         ctx.clearRect(0, 0, w, h);
 
         for (const star of stars) {
@@ -171,7 +199,7 @@
             star.draw();
         }
 
-        requestAnimationFrame(animate);
+        stars_animation_frame = requestAnimationFrame(animate);
     }
 
     animate();
@@ -187,9 +215,9 @@
     if (!isFinePointer) root.style.display = "none";
 
     window.addEventListener("mousemove", (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
     });
 
     function tick() {
@@ -251,9 +279,20 @@
             const s = parseFloat(el.dataset.parallax || "20"); // px
             el.style.transform = `translateY(${t * s}px)`;
         }
+
+        // en mobile : quand le h1 arrive dans la partie supérieure du viewport, lui ajouter une classe
+        if (isMobile) {
+            document.querySelectorAll('.h1-fx').forEach(h => {
+                const r = h.getBoundingClientRect();
+                if (r.top <= vh * MOBILE_AUTO_OVER_THRESHOLD) h.classList.add('auto-over');
+                else h.classList.remove('auto-over');
+            });
+        } else {
+            // s'assurer de retirer la classe si on repasse en desktop
+            document.querySelectorAll('.h1-fx.auto-over').forEach(h => h.classList.remove('auto-over'));
+        }
     }
     addEventListener('scroll', onScroll, { passive:true });
-    addEventListener('resize', onScroll);
     onScroll();
 
     const layers = [
