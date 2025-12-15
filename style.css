@@ -151,6 +151,10 @@ section {
     box-shadow: 0 0 4px rgba(151, 150, 153, 0.5);
 }
 
+*:has(> .slide) {
+    width: 33%;
+}
+
 #contact form {
     display: flex;
     flex-direction: column;

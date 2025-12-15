@@ -91,11 +91,10 @@
 
     const MOBILE_VIEWPORT_WIDTH = 560;
     var isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
-    // seuil (fraction de la hauteur viewport) pour déclencher l'effet "auto hover" en mobile
-    const MOBILE_AUTO_OVER_THRESHOLD = 0.25;
+    
+    const MOBILE_AUTO_OVER_THRESHOLD = 0.25; // seuil (% of vh) pour "auto hover" en mobile
 
-    // debounce resize: n'exécute la logique lourde qu'une seule fois après la fin du resize
-    const DEBOUNCE_MS = 150;
+    const DEBOUNCE_MS = 150; // refresh rate for resize events
     let _resizeTimeout = null;
     function _handleResizeFinal() {
         resize();
@@ -254,16 +253,15 @@
         const slider = new Slider({
             slides,
             start_index: 0,
-            loop: true,
+            loop: false,
             arrows: true,
-            dots: true,
+            dots: false,
             autoplay_ms: 0,
-            pause_on_hover: true,
+            pause_on_hover: false,
             keyboard: true,
             swipe: true,
             // on_change: (i) => console.log('slide ->', i),
             slides_per_view: 3,
-
         });
 
         slider.append_to(document.querySelector('#slider-mount'));
