@@ -92,7 +92,7 @@
     const MOBILE_VIEWPORT_WIDTH = 560;
     var isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
     // seuil (fraction de la hauteur viewport) pour déclencher l'effet "auto hover" en mobile
-    const MOBILE_AUTO_OVER_THRESHOLD = 0.4;
+    const MOBILE_AUTO_OVER_THRESHOLD = 0.25;
 
     // debounce resize: n'exécute la logique lourde qu'une seule fois après la fin du resize
     const DEBOUNCE_MS = 150;
@@ -257,7 +257,7 @@
             loop: true,
             arrows: true,
             dots: true,
-            autoplay_ms: 4000,
+            autoplay_ms: 0,
             pause_on_hover: true,
             keyboard: true,
             swipe: true,
@@ -282,6 +282,11 @@
             const mid = (r.top + r.bottom) / 2;
             const t = (mid - vh/2) / vh;           // -1..1 approx
             const s = parseFloat(el.dataset.parallax || "20"); // px
+            if (isMobile) {
+                // delete parallax effect on mobile
+                el.style.transform = `translateY(0px)`;
+                continue;
+            }
             el.style.transform = `translateY(${t * s}px)`;
         }
 
