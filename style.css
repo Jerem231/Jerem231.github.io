@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&display=swap');
+
+:root {
+    --bg-color: #110f0f;
+    --text-color: #d9e6f8;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: Arial, sans-serif;
+    font-family: "Manrope", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+}
+
+#home {
+    position: relative;
+    height: 100svh;
+    overflow: hidden;
+}
+
+.text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#home .text .title {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+#home .text .title > * {
+    margin: 0;
+    line-height: 1.1;
+}
+
+#home .text h1 {
+    font-size: 4rem;
+    margin: 0;
+}
+
+.background-effect {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+#starfield {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14svh;
+}
+
+/* Masque le curseur natif uniquement sur desktop */
+@media (hover: hover) and (pointer: fine) {
+  #home { cursor: none; }
+}
+
+.custom-cursor {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.cursor-dot, .cursor-ring {
+  position: fixed;
+  left: 0; top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(200,220,255,0.95);
+  box-shadow: 0 0 12px rgba(120,160,255,0.55);
+}
+
+.cursor-ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(160,190,255,0.45);
+  box-shadow: 0 0 26px rgba(120,160,255,0.20);
+  backdrop-filter: blur(2px);
+}
+
+/* États interactifs */
+.cursor--active .cursor-ring {
+  transform: translate(-50%, -50%) scale(1.25);
+  border-color: rgba(255,200,140,0.55);
+  box-shadow: 0 0 34px rgba(255,200,140,0.22);
+}
+.cursor--active .cursor-dot {
+  background: rgba(255,200,140,0.95);
+  box-shadow: 0 0 14px rgba(255,200,140,0.55);
+}
+
+/* Accessibilité : si l’utilisateur préfère moins d’animations */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring { transition: none !important; }
+}
+
+.slide {
+    border-radius: 8px;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: var(--text-color);
+    margin: 4px;
+    box-shadow: 0 0 4px rgba(151, 150, 153, 0.5);
+}
+
+#contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 40%;
+    max-width: 762px;
+    margin: 40px auto;
+    padding: 18px;
+    box-shadow: 0 0 4px rgba(151, 150, 153, 0.5);
+    border-radius: 8px;
+}
+
+#contact input, #contact textarea {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: "Manrope", sans-serif;
+    background-color: var(--bg-color);
+    border: 1px solid #555;
+}
+
+#contact form * {
+    color: var(--text-color);
+}
+
+#contact button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #444;
+    color: var(--text-color);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}

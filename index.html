@@ -1,12 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample HTML Page</title>
+    <title>Jérémy PINCHON</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="toolbox.bundle.js"></script>
 </head>
+
 <body>
-    <h1>Welcome to the Sample HTML Page</h1>
-    <p>This is a simple HTML document structure.</p>
+    <section id="home">
+        <div class="text">
+            <div class="title">
+                <h2>Jérémy PINCHON</h2>
+                <h1>Digital 3D Artist</h1>
+            </div>
+            <p>High-end CGI, cinematic visuals and cutting edge digital art</p>
+        </div>
+
+        <div class="background-effect">
+            <canvas id="starfield"></canvas>
+        </div>
+
+    </section>
+
+    <section id="featured-projects">
+        <span class="separator"></span>
+        <h2>Featured Projects</h2>
+
+        <div class="slider-wrapper" id="slider-mount" style="width: 100%;"></div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+
+        <form action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="b830084b-fce3-4076-a6ef-19b82c4262c8">
+
+            <label for="name">Name</label>
+            <input type="text" name="name" required placeholder="Your Name">
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required placeholder="your.email@example.com">
+
+            <label for="message">Message</label>
+            <textarea name="message" required placeholder="Your Message..."></textarea>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <!-- cursor -->
+    <div class="custom-cursor" aria-hidden="true">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+    <template id="slide-1">
+        <div class="slide">Slide 1</div>
+    </template>
+
+    <template id="slide-2">
+        <div class="slide">Slide 2</div>
+    </template>
+
+    <template id="slide-3">
+        <div class="slide">Slide 3</div>
+    </template>
 </body>
+
+<script>
+    const { PopUp, Navigator, ContextMenu, EditableText, DataTable, Toast, LoadingScreen, Slider } = Toolbox;
+
+
+    const canvas = document.getElementById("starfield");
+    const ctx = canvas.getContext("2d");
+
+    let w, h;
+    let stars = [];
+    const STAR_COUNT = 400;
+    const mouse = { x: 0, y: 0 };
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Star {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.z = Math.random();
+            this.r = 1.5 + this.z * 1.5;
+            this.vx = 0;
+            this.vy = 0;
+        }
+
+        update() {
+            const dx = (this.x - mouse.x) * 2;
+            const dy = (this.y - mouse.y) * 2;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+            const force = Math.min(80 / dist, 2);
+            this.vx += (dx / dist) * force * this.z;
+            this.vy += (dy / dist) * force * this.z;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            this.vx *= 0.92;
+            this.vy *= 0.92;
+
+            if (
+                this.x < -50 || this.x > w + 50 ||
+                this.y < -50 || this.y > h + 50
+            ) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            const t = this.z;
+            const g = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.r * 4
+            );
+
+            g.addColorStop(0, `rgba(200,220,255,${0.7 * t})`);
+            g.addColorStop(0.5, `rgba(120,160,255,${0.3 * t})`);
+            g.addColorStop(1, `rgba(0,0,0,0)`);
+
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+    }
+
+    stars = Array.from({ length: STAR_COUNT }, () => new Star());
+
+    window.addEventListener("mousemove", e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+
+        for (const star of stars) {
+            star.update();
+            star.draw();
+        }
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const root = document.querySelector(".custom-cursor");
+    const dot = document.querySelector(".cursor-dot");
+    const ring = document.querySelector(".cursor-ring");
+
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+
+    const isFinePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isFinePointer) root.style.display = "none";
+
+    window.addEventListener("mousemove", (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    });
+
+    function tick() {
+    // inertie du ring (plus faible = plus “lourd”)
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Active sur éléments interactifs
+    const hoverables = "a, button, [role='button'], .hoverable";
+    document.addEventListener("mouseover", (e) => {
+    if (e.target.closest(hoverables)) root.classList.add("cursor--active");
+    });
+    document.addEventListener("mouseout", (e) => {
+    if (e.target.closest(hoverables)) root.classList.remove("cursor--active");
+    });
+
+
+    function generate_slider() {
+        const slides = [
+            document.getElementById('slide-1').content.cloneNode(true),
+            document.getElementById('slide-2').content.cloneNode(true),
+            document.getElementById('slide-3').content.cloneNode(true),
+        ];
+
+        const slider = new Slider({
+            slides,
+            start_index: 0,
+            loop: true,
+            arrows: true,
+            dots: true,
+            autoplay_ms: 4000,
+            pause_on_hover: true,
+            keyboard: true,
+            swipe: true,
+            // on_change: (i) => console.log('slide ->', i),
+            slides_per_view: 3,
+
+        });
+
+        slider.append_to(document.querySelector('#slider-mount'));
+        slider.go_to(1);
+        slider.go_to(0);
+    }
+
+    generate_slider();
+
+</script>
+
 </html>
