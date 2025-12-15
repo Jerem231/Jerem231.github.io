@@ -88,7 +88,7 @@ section {
 
 /* Masque le curseur natif uniquement sur desktop */
 @media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
+  * { cursor: none; }
 }
 
 .custom-cursor {
@@ -202,4 +202,87 @@ section {
   opacity: 0.4;
 }
 
-/* glow move: rotation of glow layers around the center on itself */
+/* 
+#home h1{
+  position: relative;
+  display: inline-block;
+  color: rgba(240,245,255,0.92);
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: text-shadow .35s ease, filter .35s ease;
+}
+
+#home h1::after{
+  content:"";
+  position:absolute;
+  inset:-8px -10px;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(120,160,255,0.18) 35%,
+    rgba(255,200,140,0.14) 55%,
+    transparent 75%
+  );
+  transform: translateX(-40%);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events:none;
+  transition: opacity .35s ease, transform .65s ease;
+  mix-blend-mode: screen;
+}
+
+#home h1:hover{
+  text-shadow:
+    0 0 18px rgba(120,160,255,0.22),
+    0 0 36px rgba(120,160,255,0.12);
+  filter: saturate(1.05);
+}
+
+#home h1:hover::after{
+  opacity: 1;
+  transform: translateX(10%);
+} */
+
+
+.h1-fx{
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* lettres */
+.h1-fx .ch{
+  display: inline-block;
+  will-change: transform, filter, background-position;
+  transition: transform .45s ease-in-out, filter .45s ease-in-out, background-position .7s ease-in-out, opacity .3s ease-in-out;
+}
+
+/* état normal : texte quasi blanc */
+.h1-fx .ch{
+  color: rgba(240,245,255,0.92);
+}
+
+/* gradient prêt mais non affiché */
+.h1-fx.gradient .ch{
+  background: linear-gradient(90deg, #84abff, #6284ff, #ffc58a);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding-bottom: 10px;
+}
+
+/* hover : on révèle le gradient + lift + glow */
+.h1-fx.gradient:hover .ch{
+  color: transparent; /* laisse passer le gradient CLIPPÉ sur la lettre */
+  background-position: 100% 50%;
+  transform: translateY(-2px);
+  filter:
+    drop-shadow(0 0 10px rgba(120,160,255,0.35))
+    drop-shadow(0 0 18px rgba(255,180,120,0.25));
+  transition-delay: calc(var(--i) * 18ms);
+}
+
+.h1-fx.gradient:hover .ch:nth-child(odd){
+  transform: translateY(-3px);
+}
