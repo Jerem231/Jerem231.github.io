@@ -16,7 +16,7 @@
     <meta property="og:description" content="Explore the portfolio of Jérémy PINCHON, showcasing high-end CGI, cinematic visuals, and innovative digital art projects.">
     <meta property="keywords" content="Digital 3D Artist, CGI, Cinematic Visuals, Digital Art, Portfolio, Jérémy PINCHON">
     <meta property="author" content="Jérémy PINCHON">
-    
+
     <meta name="google-site-verification" content="6Q6zrvlePzRbAi5mg9w_IDUed3SarR9gppW6Y6BYgS0" />
 
     <title>Jérémy PINCHON</title>
@@ -76,15 +76,33 @@
 
     <!-- slides -->
     <template id="slide-1">
-        <div class="slide">Slide 1</div>
+        <div class="slide" data-project="project-1">Slide 1</div>
+    </template>
+    <template id="project-1">
+        <div class="project">
+            <h2>Project 1</h2>
+            <p>Details about Project 1...</p>
+        </div>
     </template>
 
     <template id="slide-2">
-        <div class="slide">Slide 2</div>
+        <div class="slide" data-project="project-2">Slide 2</div>
+    </template>
+    <template id="project-2">
+        <div class="project">
+            <h2>Project 2</h2>
+            <p>Details about Project 2...</p>
+        </div>
     </template>
 
     <template id="slide-3">
-        <div class="slide">Slide 3</div>
+        <div class="slide" data-project="project-3">Slide 3</div>
+    </template>
+    <template id="project-3">
+        <div class="project">
+            <h2>Project 3</h2>
+            <p>Details about Project 3...</p>
+        </div>
     </template>
 </body>
 
@@ -213,19 +231,71 @@
     const root = document.querySelector(".custom-cursor");
     const dot = document.querySelector(".cursor-dot");
     const ring = document.querySelector(".cursor-ring");
-
+    
     let mx = window.innerWidth / 2, my = window.innerHeight / 2;
     let rx = mx, ry = my;
-
+    
     const isFinePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
     if (!isFinePointer) root.style.display = "none";
-
+    
     window.addEventListener("mousemove", (e) => {
         mx = e.clientX;
         my = e.clientY;
         dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
     });
+    
+    // met à jour l'état "active" du curseur en fonction de l'élément sous le pointeur
+    const hoverables = "a, button, [role='button'], .hoverable, .slide";
+    function updateCursorActiveState() {
+        const el = document.elementFromPoint(mx, my);
+        if (el && el.closest(hoverables)) root.classList.add("cursor--active");
+        else root.classList.remove("cursor--active");
+    }
 
+    // polling fallback : si la classe active est présente on vérifie périodiquement
+    let _activePollInterval = null;
+    const ACTIVE_POLL_MS = 120; // fréquence du check quand actif
+
+    function startActivePolling() {
+        if (_activePollInterval) return;
+        _activePollInterval = setInterval(() => {
+            updateCursorActiveState();
+            // stop automatique si plus actif
+            if (!root.classList.contains("cursor--active")) stopActivePolling();
+        }, ACTIVE_POLL_MS);
+    }
+    function stopActivePolling() {
+        if (!_activePollInterval) return;
+        clearInterval(_activePollInterval);
+        _activePollInterval = null;
+    }
+
+    // déclencher polling quand on devient actif (capture mouseover/move aussi)
+    const _oldAddActive = () => root.classList.add("cursor--active");
+    document.addEventListener("mouseover", (e) => {
+      if (e.target.closest(hoverables)) { _oldAddActive(); startActivePolling(); }
+    });
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest(hoverables)) { root.classList.remove("cursor--active"); stopActivePolling(); }
+    });
++
+    // fallback : si un handler empêche mouseout (ex: preventDefault sur close), on force un check
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.popup-close, .close, [data-popup-close]')) {
+            // donner le temps au DOM puis vérifier plusieurs fois si nécessaire
+            updateCursorActiveState();
+            startActivePolling();
+            setTimeout(() => { updateCursorActiveState(); stopActivePolling(); }, 300);
+        }
+    }, true);
++
+    // si on ouvre un popup via open_project depuis notre handler, on force aussi la recompute
+    // (si tu as un autre endroit qui appelle open_project, adapte aussi)
+    function open_project_and_sync(id) {
+        open_project(id);
+        // small delay to allow popup to render and for pointer state to settle
+        setTimeout(updateCursorActiveState, 50);
+    }
     function tick() {
     // inertie du ring (plus faible = plus “lourd”)
     rx += (mx - rx) * 0.12;
@@ -236,7 +306,6 @@
     tick();
 
     // Active sur éléments interactifs
-    const hoverables = "a, button, [role='button'], .hoverable";
     document.addEventListener("mouseover", (e) => {
     if (e.target.closest(hoverables)) root.classList.add("cursor--active");
     });
@@ -273,6 +342,56 @@
 
     generate_slider();
 
+    // robust open handler: pointer / touch / click fallback
+    (function(){
+        const sliderMount = document.querySelector('#slider-mount');
+        if (!sliderMount) return;
+
+        let _lastOpenTs = 0;
+        function handleProjectOpenAtPoint(x, y, e) {
+            const el = document.elementFromPoint(x, y);
+            if (!el) return false;
+            const s = el.closest('.slide');
+            if (!s) return false;
+            const id = s.dataset.project;
+            if (!id) return false;
+            const now = Date.now();
+            if (now - _lastOpenTs < 500) return true; // debounce
+            _lastOpenTs = now;
+            if (e && typeof e.preventDefault === 'function') {
+                try { e.preventDefault(); e.stopPropagation(); } catch (err) {}
+            }
+            open_project(id);
+            return true;
+        }
+
+        // Pointer events (principal)
+        if (window.PointerEvent) {
+            sliderMount.addEventListener('pointerup', (e) => {
+                // ignore mouse moves that aren't clicks if desired: only act on touch or pen or mouse
+                handleProjectOpenAtPoint(e.clientX, e.clientY, e);
+            }, { passive: false });
+        } else {
+            // touch fallback
+            sliderMount.addEventListener('touchend', (e) => {
+                const t = e.changedTouches && e.changedTouches[0];
+                if (!t) return;
+                handleProjectOpenAtPoint(t.clientX, t.clientY, e);
+            }, { passive: false });
+            // click fallback (capture to try to run before other bubble handlers)
+            sliderMount.addEventListener('click', (e) => {
+                const s = e.target.closest('.slide');
+                if (!s) return;
+                const id = s.dataset.project;
+                if (!id) return;
+                if (Date.now() - _lastOpenTs < 500) return;
+                _lastOpenTs = Date.now();
+                e.preventDefault(); e.stopPropagation();
+                open_project(id);
+            }, true);
+        }
+    })();
+
     const items = [...document.querySelectorAll('[data-parallax]')];
 
     function onScroll(){
@@ -305,12 +424,6 @@
     addEventListener('scroll', onScroll, { passive:true });
     onScroll();
 
-    const layers = [
-        { el: document.querySelector('.layer-glow'), k: 0.02 },
-        { el: document.querySelector('.layer-noise'), k: 0.04 },
-    ];
-
-
     document.querySelectorAll('.h1-fx').forEach(el => {
         const text = el.textContent;
         el.textContent = '';
@@ -322,6 +435,18 @@
             el.appendChild(s);
         });
     });
+
+    function open_project(project_id) {
+        const template = document.getElementById(project_id);
+        if (!template) Toast.info("No more information available for this project.");
+        else {
+            const content = template.content.cloneNode(true);
+            new PopUp({
+                content: content,
+                buttons: [{ label: 'Close', class_name: 'yes-button' }]
+            }).open();
+        }
+    }
 
 </script>
 
