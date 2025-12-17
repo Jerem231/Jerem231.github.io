@@ -199,7 +199,8 @@
     <!-- loader -->
     <div id="site_loader" class="site-loader" aria-hidden="true">
         <div class="loader-orb"></div>
-        <div class="loader-text">Loading</div>
+        <div class="loader-text" id="loader_text">Loading</div>
+        <div class="loader-info" id="loader_info_text">Preparing assets...</div>
     </div>
 
 </body>
@@ -498,40 +499,49 @@
     });
 
     function hide_loader() {
-  const loader = document.getElementById('site_loader');
-  if (!loader) return;
-  loader.classList.add('hide');
-}
+        document.body.style.overflow = '';
+        const loader = document.getElementById('site_loader');
+        if (!loader) return;
+        loader.classList.add('hide');
+        
+        // scroll to the top (in case of reload on thanks.html)
+        document.documentElement.scrollTo({ top: 0, behavior: 'instant' });
+        onScroll();
 
-    const preload_elements = [...document.querySelectorAll('[data-preload]')];
-
-    if (preload_elements.length === 0) {
-    window.addEventListener('load', hide_loader, { once: true });
-    } else {
-    let remaining = preload_elements.length;
-
-    const done = () => {
-        remaining--;
-        if (remaining <= 0) hide_loader();
-    };
-
-    preload_elements.forEach(el => {
-        if (el.tagName === 'VIDEO') {
-        if (el.readyState >= 2) done();
-        else el.addEventListener('canplay', done, { once: true });
-        }
-
-        else if (el.tagName === 'IMG') {
-        if (el.complete) done();
-        else el.addEventListener('load', done, { once: true });
-        }
-
-        else {
-        done(); // fallback (sécurité)
-        }
-    });
     }
 
+    const preload_elements = [...document.querySelectorAll('[data-preload]')];
+    const loading_details_text = document.getElementById('loader_info_text');
+
+    if (preload_elements.length === 0) {
+        window.addEventListener('load', hide_loader, { once: true });
+    } else {
+        document.body.style.overflow = 'hidden';
+        let remaining = preload_elements.length;
+        loading_details_text.textContent = `${remaining} assets remaining`;
+
+        const done = () => {
+            remaining--;
+            loading_details_text.textContent = `${remaining} assets remaining`;
+            if (remaining <= 0) hide_loader();
+        };
+
+        preload_elements.forEach(el => {
+            if (el.tagName === 'VIDEO') {
+                if (el.readyState >= 2) done();
+                else el.addEventListener('canplay', done, { once: true });
+            }
+
+            else if (el.tagName === 'IMG') {
+                if (el.complete) done();
+                else el.addEventListener('load', done, { once: true });
+            }
+
+            else {
+                done(); // fallback (sécurité)
+            }
+        });
+    }
 
 </script>
 
