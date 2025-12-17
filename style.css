@@ -111,7 +111,7 @@ section {
     margin-bottom: 14vh;
 }
 
-* { cursor: none; }
+* { cursor: none !important; }
 
 .custom-cursor {
     position: fixed;
