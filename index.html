@@ -51,21 +51,99 @@
 
     <section id="featured-projects">
         <div class="block identity">
-            <h3>01 IDENTITY</h3>
+            <h3 data-parallax-x="-220"><span>01.</span>  IDENTITY</h3>
+            
+            <div class="project-preview" id="presentation">
+                <img src="/assets/photo.png" alt="Jérémy PINCHON">
+                <div class="description">
+                    <h4>Jérémy PINCHON</h4>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in posuere sapien. Suspendisse eget dolor vitae turpis molestie aliquam id eget nunc. Nulla vitae mi nibh. Praesent odio ex, sodales eget massa a, venenatis facilisis massa. Aliquam vel vestibulum velit, quis sodales augue. Pellentesque eu dui orci. Pellentesque at volutpat lorem. Etiam varius pretium risus, non luctus metus iaculis nec. Praesent lacinia sem quis fringilla posuere.
+                        <br><br>
+                        Sed ullamcorper mi iaculis felis condimentum commodo. Etiam vulputate velit eu aliquam lacinia. Suspendisse commodo purus sit amet metus sagittis blandit. In hac habitasse platea dictumst. Vestibulum sed bibendum metus. Cras vel neque nunc. In consequat, elit at tristique aliquet, magna neque faucibus sem, at porttitor felis felis eget est. Nulla ut volutpat mauris. Donec turpis nisl, vestibulum ut massa et, ornare luctus mi. Phasellus egestas volutpat pretium. Nulla consectetur sem at luctus fermentum. Donec ac gravida dolor.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-preview" id="sphere">
+                <video id="sphere_video" autoplay loop muted preload="auto">
+                    <source src="/assets/data/sphere.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+
+            <div class="project-preview" id="watch-showcase">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/watch_showcase.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
         <div class="block modeling">
-            <h3>02 MODELING</h3>
-        </div>
-        <div class="block compositing">
-            <h3>03 COMPOSITING</h3>
+            <h3 data-parallax-x="-220"><span>02.</span>  MODELING</h3>
+
+            <div class="project-preview" id="mecha-modeling">
+                <div class="viewport" id="mecha-model"></div>
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/mecha_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="spaceship-modeling">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/spaceship_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="palpatine-modeling">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/palpatine_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="mecha2-modeling">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/mecha2_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="flamethrower-modeling">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/flamethrower_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="watch-modeling">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/watch_modeling.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
 
+        <div class="block compositing">
+            <h3 data-parallax-x="-220"><span>03.</span>  COMPOSITING</h3>
+
+            <div class="project-preview" id="helmet-compositing">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/helmet_compositing.mp4" type="video/mp4">
+                </video>
+            </div>
+            
+            <div class="project-preview" id="the-boys-compositing">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/the_boys_compositing.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="project-preview" id="music-clip-compositing">
+                <video autoplay loop muted preload="auto">
+                    <source src="/assets/data/music_clip_compositing.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
     </section>
 
     <section id="contact">
-        <div id="viewer" style="width:100%;height:520px;border-radius:16px;overflow:hidden;"></div>
-
-        <div id="viewer" style="width:100%;height:520px;border-radius:16px;overflow:hidden;"></div>
+        <!-- <div id="viewer" style="width:100%;height:520px;border-radius:16px;overflow:hidden;"></div> -->
 
         <h2>Contact Me</h2>
         <div class="contact-block">
@@ -76,14 +154,7 @@
             <a href="/JEREMY_PINCHON.pdf" download><i class="fas fa-file-download"></i>Download CV</a>
             
         </div>
-        <div class="contact-block">
-            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-pinchon-81a0b8304/" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-linkedin"></i> Linkedin
-            </a>
 
-            <a href="/JEREMY_PINCHON.pdf" download><i class="fas fa-file-download"></i>Download CV</a>
-            
-        </div>
         <form action="https://api.web3forms.com/submit" method="POST" data-parallax="20">
             <input type="hidden" name="access_key" value="b830084b-fce3-4076-a6ef-19b82c4262c8">
 
@@ -105,36 +176,6 @@
         <div class="cursor-dot"></div>
     </div>
 
-    <!-- slides -->
-    <template id="slide-1">
-        <div class="slide" data-project="project-1">Slide 1</div>
-    </template>
-    <template id="project-1">
-        <div class="project">
-            <h2>Project 1</h2>
-            <p>Details about Project 1...</p>
-        </div>
-    </template>
-
-    <template id="slide-2">
-        <div class="slide" data-project="project-2">Slide 2</div>
-    </template>
-    <template id="project-2">
-        <div class="project">
-            <h2>Project 2</h2>
-            <p>Details about Project 2...</p>
-        </div>
-    </template>
-
-    <template id="slide-3">
-        <div class="slide" data-project="project-3">Slide 3</div>
-    </template>
-    <template id="project-3">
-        <div class="project">
-            <h2>Project 3</h2>
-            <p>Details about Project 3...</p>
-        </div>
-    </template>
 </body>
 
 <script type="importmap">
@@ -145,18 +186,7 @@
   }
 }
 </script>
-<script type="module" src="/js/viewer.js"></script>
-
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
-  }
-}
-</script>
-<script type="module" src="/js/viewer.js"></script>
+<!-- <script type="module" src="/js/viewer.js"></script> -->
 
 <script>
     const { PopUp, Navigator, ContextMenu, EditableText, DataTable, Toast, LoadingScreen, Slider } = Toolbox;
@@ -343,139 +373,91 @@
     }, true);
 
 
-    // si on ouvre un popup via open_project depuis notre handler, on force aussi la recompute
-    // (si tu as un autre endroit qui appelle open_project, adapte aussi)
-    function open_project_and_sync(id) {
-        open_project(id);
-        // small delay to allow popup to render and for pointer state to settle
-        setTimeout(updateCursorActiveState, 50);
-    }
+   
     function tick() {
-    // inertie du ring (plus faible = plus “lourd”)
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-    requestAnimationFrame(tick);
+        // inertie du ring (plus faible = plus “lourd”)
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(tick);
     }
     tick();
 
     // Active sur éléments interactifs
     document.addEventListener("mouseover", (e) => {
-    if (e.target.closest(hoverables)) root.classList.add("cursor--active");
+        if (e.target.closest(hoverables)) root.classList.add("cursor--active");
     });
     document.addEventListener("mouseout", (e) => {
-    if (e.target.closest(hoverables)) root.classList.remove("cursor--active");
+        if (e.target.closest(hoverables)) root.classList.remove("cursor--active");
     });
 
-    function generate_slider() {
-        const slides = [
-            document.getElementById('slide-1').content.cloneNode(true),
-            document.getElementById('slide-2').content.cloneNode(true),
-            document.getElementById('slide-3').content.cloneNode(true),
-        ];
+    const items = [...document.querySelectorAll('[data-parallax], [data-parallax-x], [data-parallax-y]')];
 
-        const slider = new Slider({
-            slides,
-            start_index: 0,
-            loop: false,
-            arrows: true,
-            dots: false,
-            autoplay_ms: 0,
-            pause_on_hover: false,
-            keyboard: true,
-            swipe: true,
-            // on_change: (i) => console.log('slide ->', i),
-            slides_per_view: 3,
-        });
+    function parseParallax(el) {
+        const sxAttr = el.getAttribute('data-parallax-x');
+        const syAttr = el.getAttribute('data-parallax-y');
+        const spec = el.getAttribute('data-parallax');
 
-        slider.append_to(document.querySelector('#slider-mount'));
-        slider.go_to(1);
-        slider.go_to(0);
+        let sx = sxAttr != null ? parseFloat(sxAttr) : 0;
+        let sy = syAttr != null ? parseFloat(syAttr) : 0;
+
+        if (spec) {
+            const s = spec.trim();
+
+            // "20" => Y only
+            if (/^[+-]?\d+(\.\d+)?$/.test(s)) {
+            sy = parseFloat(s);
+            return { sx, sy };
+            }
+
+            // "x:30 y:-20" (order agnostic)
+            const mx = s.match(/x\s*:\s*([+-]?\d+(\.\d+)?)/i);
+            const my = s.match(/y\s*:\s*([+-]?\d+(\.\d+)?)/i);
+            if (mx) sx = parseFloat(mx[1]);
+            if (my) sy = parseFloat(my[1]);
+        }
+
+        return { sx, sy };
     }
 
-    generate_slider();
-
-    // robust open handler: pointer / touch / click fallback
-    (function(){
-        const sliderMount = document.querySelector('#slider-mount');
-        if (!sliderMount) return;
-
-        let _lastOpenTs = 0;
-        function handleProjectOpenAtPoint(x, y, e) {
-            const el = document.elementFromPoint(x, y);
-            if (!el) return false;
-            const s = el.closest('.slide');
-            if (!s) return false;
-            const id = s.dataset.project;
-            if (!id) return false;
-            const now = Date.now();
-            if (now - _lastOpenTs < 500) return true; // debounce
-            _lastOpenTs = now;
-            if (e && typeof e.preventDefault === 'function') {
-                try { e.preventDefault(); e.stopPropagation(); } catch (err) {}
-            }
-            open_project(id);
-            return true;
-        }
-
-        // Pointer events (principal)
-        if (window.PointerEvent) {
-            sliderMount.addEventListener('pointerup', (e) => {
-                // ignore mouse moves that aren't clicks if desired: only act on touch or pen or mouse
-                handleProjectOpenAtPoint(e.clientX, e.clientY, e);
-            }, { passive: false });
-        } else {
-            // touch fallback
-            sliderMount.addEventListener('touchend', (e) => {
-                const t = e.changedTouches && e.changedTouches[0];
-                if (!t) return;
-                handleProjectOpenAtPoint(t.clientX, t.clientY, e);
-            }, { passive: false });
-            // click fallback (capture to try to run before other bubble handlers)
-            sliderMount.addEventListener('click', (e) => {
-                const s = e.target.closest('.slide');
-                if (!s) return;
-                const id = s.dataset.project;
-                if (!id) return;
-                if (Date.now() - _lastOpenTs < 500) return;
-                _lastOpenTs = Date.now();
-                e.preventDefault(); e.stopPropagation();
-                open_project(id);
-            }, true);
-        }
-    })();
-
-    const items = [...document.querySelectorAll('[data-parallax]')];
-
-    function onScroll(){
+    function onScroll() {
         const vh = innerHeight;
+
         for (const el of items) {
+            if (isMobile) {
+            el.style.transform = `translate3d(0px, 0px, 0px)`;
+            continue;
+            }
+
             const r = el.getBoundingClientRect();
             const mid = (r.top + r.bottom) / 2;
-            const t = (mid - vh/2) / vh;           // -1..1 approx
-            const s = parseFloat(el.dataset.parallax || "20"); // px
-            if (isMobile) {
-                // delete parallax effect on mobile
-                el.style.transform = `translateY(0px)`;
-                continue;
-            }
-            el.style.transform = `translateY(${t * s}px)`;
+            const t = (mid - vh / 2) / vh; // negative when above center, positive when below
+
+            const { sx, sy } = parseParallax(el);
+
+            // Convention: sy > 0 => moves down when element is below center (t>0),
+            // sy < 0 => moves up when element is below center (i.e. "descendre au lieu de monter" achieved naturally)
+            const dx = t * sx;
+            const dy = t * sy;
+
+            el.style.transform = `translate3d(${dx}px, ${dy}px, 0px)`;
         }
 
-        // en mobile : quand le h1 arrive dans la partie supérieure du viewport, lui ajouter une classe
         if (isMobile) {
             document.querySelectorAll('.h1-fx').forEach(h => {
-                const r = h.getBoundingClientRect();
-                if (r.top <= vh * MOBILE_AUTO_OVER_THRESHOLD) h.classList.add('auto-over');
-                else h.classList.remove('auto-over');
+            const r = h.getBoundingClientRect();
+            if (r.top <= vh * MOBILE_AUTO_OVER_THRESHOLD) h.classList.add('auto-over');
+            else h.classList.remove('auto-over');
             });
         } else {
-            // s'assurer de retirer la classe si on repasse en desktop
             document.querySelectorAll('.h1-fx.auto-over').forEach(h => h.classList.remove('auto-over'));
         }
     }
-    addEventListener('scroll', onScroll, { passive:true });
+
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
     onScroll();
+
 
     document.querySelectorAll('.h1-fx').forEach(el => {
         const text = el.textContent;
@@ -488,18 +470,6 @@
             el.appendChild(s);
         });
     });
-
-    function open_project(project_id) {
-        const template = document.getElementById(project_id);
-        if (!template) Toast.info("No more information available for this project.");
-        else {
-            const content = template.content.cloneNode(true);
-            new PopUp({
-                content: content,
-                buttons: [{ label: 'Close', class_name: 'yes-button' }]
-            }).open();
-        }
-    }
 
 </script>
 

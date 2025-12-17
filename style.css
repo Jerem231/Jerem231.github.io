@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Maven+Pro:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
     --bg-color: #110f0f;
@@ -163,29 +164,6 @@ section {
   .cursor-ring { transition: none !important; }
 }
 
-.slide {
-    border-radius: 8px;
-    width: 100%;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    color: var(--text-color);
-    margin: 4px;
-    box-shadow: 0 0 4px rgba(151, 150, 153, 0.5);
-    z-index: 2;
-}
-
-.slide:hover {
-    box-shadow: 0 0 8px rgba(164, 154, 186, 0.8);
-    transition: box-shadow 0.3s ease;
-}
-
-*:has(> .slide) {
-    width: 33%;
-}
-
 #contact form {
     display: flex;
     flex-direction: column;
@@ -300,6 +278,64 @@ section {
 .contact-block a > i {
     font-size: 1.8rem;
     color: var(--primary-color);
+}
+
+#featured-projects > .block {
+    width: 100%;
+}
+
+#featured-projects > .block > h3 {
+    font-family: 'Epilogue', sans-serif;
+    font-weight: 900;
+    font-size: 10rem;
+    font-style: italic;
+    letter-spacing: -4px;
+    line-height: 0.9;
+    margin: 0 0 0 2rem;
+    user-select: none;
+    color: var(--text-color);
+}
+
+#featured-projects > .block > h3 > span {
+    color: var(--primary-color);
+    width: 14rem;
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+#featured-projects .project-preview {
+    margin-top: 60px;
+}
+
+#featured-projects #presentation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    margin-top: 4rem;
+}
+
+#featured-projects #presentation img {
+    width: 40%;
+    mix-blend-mode: difference;
+    border: solid 3px var(--primary-color);
+    border-radius: 8px;
+}
+
+#featured-projects #presentation .description {
+    width: 30%;
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+#featured-projects #presentation .description h4 {
+    margin-top: 0;
+    font-size: 2rem;
+}
+
+#featured-projects #sphere_video {
+    width: 100%;
+    mix-blend-mode: difference;
 }
 
 /* mobile version */
