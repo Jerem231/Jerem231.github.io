@@ -281,7 +281,18 @@ section {
     color: var(--primary-color);
 }
 
+#featured-projects {
+    /* hidden for parallax x effect */
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
 #featured-projects > .block {
+    width: 100%;
+}
+
+#featured-projects .project-preview > video,
+#featured-projects .project-preview > img {
     width: 100%;
 }
 
@@ -292,7 +303,7 @@ section {
     font-style: italic;
     letter-spacing: -4px;
     line-height: 0.9;
-    margin: 0 0 0 2rem;
+    margin: 70vh 0 0 2rem;
     user-select: none;
     color: var(--text-color);
 }
@@ -334,10 +345,65 @@ section {
     font-size: 2rem;
 }
 
-#featured-projects #sphere_video {
-    width: 100%;
-    mix-blend-mode: difference;
+#featured-projects .project-preview#sphere {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 60vh;
 }
+
+#featured-projects .project-preview#sphere #sphere_video {
+    width: 60%;
+    /* mix-blend-mode: difference; */
+}
+
+#featured-projects .project-preview#sphere .academic-background {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 40%;
+    padding-left: 24px;
+}
+
+#featured-projects .project-preview#sphere .academic-background h4 {
+    font-family: "Manrope", sans-serif;
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin: 0 0 1rem 0;
+}
+
+#featured-projects .project-preview#sphere .academic-background .wrapper {
+    width: 100%;
+}
+
+#featured-projects .project-preview#sphere .academic-background .wrapper .item {
+    padding: 1rem 1.2rem;
+    border-left: solid 2px var(--primary-color);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#featured-projects .project-preview#sphere .academic-background .wrapper .item::after {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--bg-color);
+    border: solid 2px var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    left: -8px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#featured-projects .project-preview#sphere .academic-background .wrapper .item:hover::after {
+    background-color: var(--primary-color);
+}
+
 
 /* mobile version */
 @media (max-width: 560px) {

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0b1220">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta property="og:url" content="https://www.jeremy-pinchon.com">
+    <meta property="description" content="Jérémy PINCHON - Digital 3D Artist specializing in high-end CGI, cinematic visuals, and cutting-edge digital art.">
+    <meta property="og:title" content="Jérémy PINCHON - Digital 3D Artist">
+    <meta property="og:description" content="Explore the portfolio of Jérémy PINCHON, showcasing high-end CGI, cinematic visuals, and innovative digital art projects.">
+    <meta property="keywords" content="Digital 3D Artist, CGI, Cinematic Visuals, Digital Art, Portfolio, Jérémy PINCHON, jeremy, pinchon">
+    <meta property="author" content="Jérémy PINCHON">
+    <meta property="description" content="Explore the portfolio of Jérémy PINCHON, showcasing high-end CGI, cinematic visuals, and innovative digital art projects.">
+
+    <!-- icon webpage -->
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+    <meta name="google-site-verification" content="6Q6zrvlePzRbAi5mg9w_IDUed3SarR9gppW6Y6BYgS0" />
+
+    <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
+    <link rel="preload" href="https://kit.fontawesome.com/ebd4e3dd01.js" as="script">
+    <script src="https://kit.fontawesome.com/ebd4e3dd01.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
+    <link rel="preload" href="https://kit.fontawesome.com/ebd4e3dd01.js" as="script">
+    <script src="https://kit.fontawesome.com/ebd4e3dd01.js" crossorigin="anonymous"></script>
+
+    <title>Jérémy PINCHON</title>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="toolbox.bundle.js"></script>
+</head>
+
+<body>
+    <section id="home">
+        <div class="text">
+            <div class="title" data-parallax="100">
+                <h2></h2>
+                <h1 class="h1-fx gradient">Thank You</h1>
+            </div>
+            <p>Return to <a href="index.html">portfolio</a></p>
+        </div>
+
+        <div class="background-effect">
+            <canvas id="starfield"></canvas>
+
+            <div class="parallax-layer layer-glow" data-parallax="-300"></div>
+        </div>
+    </section>
+
+    <!-- cursor -->
+    <div class="custom-cursor" aria-hidden="true">
+        <div class="cursor-ring"></div>
+        <div class="cursor-dot"></div>
+    </div>
+
+</body>
+
+<script>
+       const MOBILE_VIEWPORT_WIDTH = 560;
+    var isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
+    
+    const MOBILE_AUTO_OVER_THRESHOLD = 0.25; // seuil (% of vh) pour "auto hover" en mobile
+
+    const DEBOUNCE_MS = 150; // refresh rate for resize events
+    let _resizeTimeout = null;
+    function _handleResizeFinal() {
+        resize();
+        onScroll();
+
+        isMobile = window.innerWidth <= MOBILE_VIEWPORT_WIDTH;
+
+        STAR_COUNT = isMobile ? 100 : 400;
+        stars = Array.from({ length: STAR_COUNT }, () => new Star());
+        animate();
+    }
+
+    window.addEventListener('resize', () => {
+        if (_resizeTimeout) clearTimeout(_resizeTimeout);
+        _resizeTimeout = setTimeout(_handleResizeFinal, DEBOUNCE_MS);
+    });
+
+    const canvas = document.getElementById("starfield");
+    const ctx = canvas.getContext("2d");
+
+    let w, h;
+    let stars = [];
+    let STAR_COUNT = isMobile ? 100 : 400;
+    const mouse = { x: 0, y: 0 };
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    class Star {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.z = Math.random();
+            this.r = 1.5 + this.z * 1.5;
+            this.vx = 0;
+            this.vy = 0;
+        }
+
+        update() {
+            const dx = (this.x - mouse.x) * 2;
+            const dy = (this.y - mouse.y) * 2;
+            const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+
+            const force = Math.min(80 / dist, 2);
+            this.vx += (dx / dist) * force * this.z;
+            this.vy += (dy / dist) * force * this.z;
+
+            this.x += this.vx;
+            this.y += this.vy;
+
+            this.vx *= 0.92;
+            this.vy *= 0.92;
+
+            if (
+                this.x < -50 || this.x > w + 50 ||
+                this.y < -50 || this.y > h + 50
+            ) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            const t = this.z;
+            const g = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.r * 4
+            );
+
+            g.addColorStop(0, `rgba(200,220,255,${0.7 * t})`);
+            g.addColorStop(0.5, `rgba(120,160,255,${0.3 * t})`);
+            g.addColorStop(1, `rgba(0,0,0,0)`);
+
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    stars = Array.from({ length: STAR_COUNT }, () => new Star());
+
+    window.addEventListener("mousemove", e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    let stars_animation_frame = null;
+
+    function animate() {
+        if (stars_animation_frame) {
+            cancelAnimationFrame(stars_animation_frame);
+        }
+        
+        ctx.clearRect(0, 0, w, h);
+
+        for (const star of stars) {
+            star.update();
+            star.draw();
+        }
+
+        stars_animation_frame = requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const root = document.querySelector(".custom-cursor");
+    const dot = document.querySelector(".cursor-dot");
+    const ring = document.querySelector(".cursor-ring");
+    
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+    
+    const isFinePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isFinePointer) root.style.display = "none";
+    
+    window.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
+    });
+    
+    // met à jour l'état "active" du curseur en fonction de l'élément sous le pointeur
+    const hoverables = "a, button, [role='button'], .hoverable, .slide";
+    function updateCursorActiveState() {
+        const el = document.elementFromPoint(mx, my);
+        if (el && el.closest(hoverables)) root.classList.add("cursor--active");
+        else root.classList.remove("cursor--active");
+    }
+
+    // polling fallback : si la classe active est présente on vérifie périodiquement
+    let _activePollInterval = null;
+    const ACTIVE_POLL_MS = 120; // fréquence du check quand actif
+
+    function startActivePolling() {
+        if (_activePollInterval) return;
+        _activePollInterval = setInterval(() => {
+            updateCursorActiveState();
+            // stop automatique si plus actif
+            if (!root.classList.contains("cursor--active")) stopActivePolling();
+        }, ACTIVE_POLL_MS);
+    }
+    function stopActivePolling() {
+        if (!_activePollInterval) return;
+        clearInterval(_activePollInterval);
+        _activePollInterval = null;
+    }
+
+    // déclencher polling quand on devient actif (capture mouseover/move aussi)
+    const _oldAddActive = () => root.classList.add("cursor--active");
+    document.addEventListener("mouseover", (e) => {
+      if (e.target.closest(hoverables)) { _oldAddActive(); startActivePolling(); }
+    });
+    document.addEventListener("mouseout", (e) => {
+      if (e.target.closest(hoverables)) { root.classList.remove("cursor--active"); stopActivePolling(); }
+    });
+
+
+    // fallback : si un handler empêche mouseout (ex: preventDefault sur close), on force un check
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('.popup-close, .close, [data-popup-close]')) {
+            // donner le temps au DOM puis vérifier plusieurs fois si nécessaire
+            updateCursorActiveState();
+            startActivePolling();
+            setTimeout(() => { updateCursorActiveState(); stopActivePolling(); }, 300);
+        }
+    }, true);
+
+
+   
+    function tick() {
+        // inertie du ring (plus faible = plus “lourd”)
+        rx += (mx - rx) * 0.12;
+        ry += (my - ry) * 0.12;
+        ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+        requestAnimationFrame(tick);
+    }
+    tick();
+
+    // Active sur éléments interactifs
+    document.addEventListener("mouseover", (e) => {
+        if (e.target.closest(hoverables)) root.classList.add("cursor--active");
+    });
+    document.addEventListener("mouseout", (e) => {
+        if (e.target.closest(hoverables)) root.classList.remove("cursor--active");
+    });
+</script>
+</html>
