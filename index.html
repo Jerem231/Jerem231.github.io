@@ -19,7 +19,7 @@
     <meta name="icon" content="/assets/icon.png">
     <meta property="og:icon" content="/assets/icon.png">
     <meta name="twitter:image" content="/assets/icon.png">
-    
+
     <meta name="google-site-verification" content="6Q6zrvlePzRbAi5mg9w_IDUed3SarR9gppW6Y6BYgS0" />
 
     <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
@@ -55,8 +55,8 @@
             <h3 data-parallax-x="-220"><span>01.</span>  IDENTITY</h3>
             
             <div class="project-preview" id="presentation">
-                <img src="/assets/photo.png" alt="Jérémy PINCHON Photo">
-                <div class="description">
+                <img src="/assets/photo.png" alt="Jérémy PINCHON Photo" data-preload>
+                <div class="description" data-parallax-x="30">
                     <h4>Jérémy PINCHON</h4>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in posuere sapien. Suspendisse eget dolor vitae turpis molestie aliquam id eget nunc. Nulla vitae mi nibh. Praesent odio ex, sodales eget massa a, venenatis facilisis massa. Aliquam vel vestibulum velit, quis sodales augue. Pellentesque eu dui orci. Pellentesque at volutpat lorem. Etiam varius pretium risus, non luctus metus iaculis nec. Praesent lacinia sem quis fringilla posuere.
@@ -88,7 +88,7 @@
             
 
             <div class="project-preview" id="watch-showcase">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="auto" data-preload>
                     <source src="/assets/data/watch_showcase.mp4" type="video/mp4">
                 </video>
 
@@ -102,7 +102,7 @@
 
             <div class="project-preview" id="mecha-modeling">
                 <div class="viewport" id="mecha-model"></div>
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="auto" data-preload>
                     <source src="/assets/data/mecha_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -194,6 +194,12 @@
     <div class="custom-cursor" aria-hidden="true">
         <div class="cursor-ring"></div>
         <div class="cursor-dot"></div>
+    </div>
+
+    <!-- loader -->
+    <div id="site_loader" class="site-loader" aria-hidden="true">
+        <div class="loader-orb"></div>
+        <div class="loader-text">Loading</div>
     </div>
 
 </body>
@@ -490,6 +496,42 @@
             el.appendChild(s);
         });
     });
+
+    function hide_loader() {
+  const loader = document.getElementById('site_loader');
+  if (!loader) return;
+  loader.classList.add('hide');
+}
+
+    const preload_elements = [...document.querySelectorAll('[data-preload]')];
+
+    if (preload_elements.length === 0) {
+    window.addEventListener('load', hide_loader, { once: true });
+    } else {
+    let remaining = preload_elements.length;
+
+    const done = () => {
+        remaining--;
+        if (remaining <= 0) hide_loader();
+    };
+
+    preload_elements.forEach(el => {
+        if (el.tagName === 'VIDEO') {
+        if (el.readyState >= 2) done();
+        else el.addEventListener('canplay', done, { once: true });
+        }
+
+        else if (el.tagName === 'IMG') {
+        if (el.complete) done();
+        else el.addEventListener('load', done, { once: true });
+        }
+
+        else {
+        done(); // fallback (sécurité)
+        }
+    });
+    }
+
 
 </script>
 
