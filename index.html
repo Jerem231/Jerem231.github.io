@@ -55,7 +55,7 @@
             <h3 data-parallax-x="-220"><span>01.</span>  IDENTITY</h3>
             
             <div class="project-preview" id="presentation">
-                <img src="/assets/photo.png" alt="Jérémy PINCHON Photo" data-preload>
+                <img src="/assets/photo.png" alt="Jérémy PINCHON Photo" loading="lazy">
                 <div class="description" data-parallax-x="30">
                     <h4>Jérémy PINCHON</h4>
                     <p>
@@ -108,31 +108,31 @@
             </div>
 
             <div class="project-preview" id="spaceship-modeling">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/spaceship_modeling.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="palpatine-modeling">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/palpatine_modeling.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="mecha2-modeling">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/mecha2_modeling.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="flamethrower-modeling">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/flamethrower_modeling.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="watch-modeling">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/watch_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -142,19 +142,19 @@
             <h3 data-parallax-x="-220"><span>03.</span>  COMPOSITING</h3>
 
             <div class="project-preview" id="helmet-compositing">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/helmet_compositing.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="the-boys-compositing">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/the_boys_compositing.mp4" type="video/mp4">
                 </video>
             </div>
 
             <div class="project-preview" id="music-clip-compositing">
-                <video autoplay loop muted preload="auto">
+                <video autoplay loop muted preload="metadata">
                     <source src="/assets/data/music_clip_compositing.mp4" type="video/mp4">
                 </video>
             </div>
@@ -518,11 +518,11 @@
     } else {
         document.body.style.overflow = 'hidden';
         let remaining = preload_elements.length;
-        loading_details_text.textContent = `${remaining} assets remaining`;
+        loading_details_text.textContent = `${remaining} assets remaining...`;
 
         const done = () => {
             remaining--;
-            loading_details_text.textContent = `${remaining} assets remaining`;
+            loading_details_text.textContent = `${remaining} assets remaining...`;
             if (remaining <= 0) hide_loader();
         };
 
