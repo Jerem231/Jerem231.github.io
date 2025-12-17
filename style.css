@@ -4,6 +4,7 @@
     --bg-color: #110f0f;
     --bg-popup: rgba(94, 95, 96, 0.518);
     --text-color: #d9e6f8;
+    --primary-color: rgb(120,160,255);
 }
 
 body {
@@ -278,6 +279,27 @@ section {
 .h1-fx.gradient:hover .ch:nth-child(odd),
 .h1-fx.gradient.h1-fx.auto-over .ch:nth-child(odd) {
   transform: translateY(-3px);
+}
+
+.contact-block {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 20px;
+}
+
+.contact-block a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.contact-block a > i {
+    font-size: 1.8rem;
+    color: var(--primary-color);
 }
 
 /* mobile version */

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,7 +7,6 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="/icons/icon-192.png">
 
     <meta property="og:url" content="https://www.jeremy-pinchon.com">
     <meta property="description" content="Jérémy PINCHON - Digital 3D Artist specializing in high-end CGI, cinematic visuals, and cutting-edge digital art.">
@@ -18,6 +16,14 @@
     <meta property="author" content="Jérémy PINCHON">
 
     <meta name="google-site-verification" content="6Q6zrvlePzRbAi5mg9w_IDUed3SarR9gppW6Y6BYgS0" />
+
+    <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
+    <link rel="preload" href="https://kit.fontawesome.com/ebd4e3dd01.js" as="script">
+    <script src="https://kit.fontawesome.com/ebd4e3dd01.js" crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://ka-f.fontawesome.com" crossorigin>
+    <link rel="preload" href="https://kit.fontawesome.com/ebd4e3dd01.js" as="script">
+    <script src="https://kit.fontawesome.com/ebd4e3dd01.js" crossorigin="anonymous"></script>
 
     <title>Jérémy PINCHON</title>
 
@@ -44,15 +50,40 @@
     </section>
 
     <section id="featured-projects">
-        <span class="separator"></span>
-        <h2>Featured Projects</h2>
+        <div class="block identity">
+            <h3>01 IDENTITY</h3>
+        </div>
+        <div class="block modeling">
+            <h3>02 MODELING</h3>
+        </div>
+        <div class="block compositing">
+            <h3>03 COMPOSITING</h3>
+        </div>
 
-        <div class="slider-wrapper" id="slider-mount" style="width: 100%;" data-parallax="20"></div>
     </section>
 
     <section id="contact">
-        <h2>Contact Me</h2>
+        <div id="viewer" style="width:100%;height:520px;border-radius:16px;overflow:hidden;"></div>
 
+        <div id="viewer" style="width:100%;height:520px;border-radius:16px;overflow:hidden;"></div>
+
+        <h2>Contact Me</h2>
+        <div class="contact-block">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-pinchon-81a0b8304/" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i> Linkedin
+            </a>
+
+            <a href="/JEREMY_PINCHON.pdf" download><i class="fas fa-file-download"></i>Download CV</a>
+            
+        </div>
+        <div class="contact-block">
+            <a href="https://www.linkedin.com/in/j%C3%A9r%C3%A9my-pinchon-81a0b8304/" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i> Linkedin
+            </a>
+
+            <a href="/JEREMY_PINCHON.pdf" download><i class="fas fa-file-download"></i>Download CV</a>
+            
+        </div>
         <form action="https://api.web3forms.com/submit" method="POST" data-parallax="20">
             <input type="hidden" name="access_key" value="b830084b-fce3-4076-a6ef-19b82c4262c8">
 
@@ -105,6 +136,27 @@
         </div>
     </template>
 </body>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+  }
+}
+</script>
+<script type="module" src="/js/viewer.js"></script>
+
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/examples/": "https://unpkg.com/three@0.160.0/examples/"
+  }
+}
+</script>
+<script type="module" src="/js/viewer.js"></script>
 
 <script>
     const { PopUp, Navigator, ContextMenu, EditableText, DataTable, Toast, LoadingScreen, Slider } = Toolbox;
@@ -278,7 +330,8 @@
     document.addEventListener("mouseout", (e) => {
       if (e.target.closest(hoverables)) { root.classList.remove("cursor--active"); stopActivePolling(); }
     });
-+
+
+
     // fallback : si un handler empêche mouseout (ex: preventDefault sur close), on force un check
     document.addEventListener('click', (e) => {
         if (e.target.closest('.popup-close, .close, [data-popup-close]')) {
@@ -288,7 +341,8 @@
             setTimeout(() => { updateCursorActiveState(); stopActivePolling(); }, 300);
         }
     }, true);
-+
+
+
     // si on ouvre un popup via open_project depuis notre handler, on force aussi la recompute
     // (si tu as un autre endroit qui appelle open_project, adapte aussi)
     function open_project_and_sync(id) {
@@ -312,7 +366,6 @@
     document.addEventListener("mouseout", (e) => {
     if (e.target.closest(hoverables)) root.classList.remove("cursor--active");
     });
-
 
     function generate_slider() {
         const slides = [
