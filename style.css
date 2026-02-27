@@ -296,7 +296,7 @@ section {
     width: 100%;
 }
 
-#featured-projects > .block > h3 {
+#featured-projects > .block h3 {
     font-family: 'Epilogue', sans-serif;
     font-weight: 900;
     font-size: 10rem;
@@ -308,7 +308,7 @@ section {
     color: var(--text-color);
 }
 
-#featured-projects > .block > h3 > span {
+#featured-projects > .block h3 > span {
     color: var(--primary-color);
     width: 14rem;
     display: inline-flex;
@@ -344,12 +344,15 @@ section {
     font-size: 2rem;
 }
 
-#featured-projects .project-preview#sphere {
+#featured-projects .project-preview {
+    margin-top: 80vh;
+}
+
+#featured-projects .project-preview#sphere .horizontal-wrapper{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    margin-top: 60vh;
 }
 
 #featured-projects .project-preview#sphere #sphere_video {
@@ -357,19 +360,45 @@ section {
     /* mix-blend-mode: difference; */
 }
 
-#featured-projects .project-preview#sphere .academic-background {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+#featured-projects .project-preview#sphere .left-block {
     width: 40%;
-    padding-left: 24px;
 }
 
-#featured-projects .project-preview#sphere .academic-background h4 {
-    font-family: "Manrope", sans-serif;
-    font-weight: 600;
-    font-size: 2.5rem;
-    margin: 0 0 1rem 0;
+
+.project-preview > h4,
+.project-preview .left-block > h4 {
+    font-size: 6rem;
+    text-transform: uppercase;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 700;
+    font-family: 'Monrope', sans-serif;
+    transition: all 0.3s ease-in-out;
+}
+
+.project-preview:hover > h4,
+.project-preview:hover .left-block > h4  {
+    font-size: 6.5rem;
+    color: var(--primary-color);
+}
+
+.project-preview > p,
+.project-preview .left-block > p {
+    font-size: 1.8rem;
+    margin-left: 72px;
+    padding-left: 12px;
+    border-radius: 2px;
+    max-width: calc(100% - 72px * 2 - 12px * 2);
+    text-align: justify;
+}
+
+.project-preview > div.logos {
+    margin-left: 72px;
+    padding-left: 12px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
 }
 
 #featured-projects .project-preview#sphere .academic-background .wrapper {
@@ -510,3 +539,30 @@ section {
     }
 }
 
+.tri_bg{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+#tri_bg_canvas{
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: rgba(89, 135, 179, 0.55);
+}
+
+.radar_bg{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.9;
+  mix-blend-mode: screen; /* optionnel, super sur fond sombre */
+}
+
+#radar_canvas{
+  width:100%;
+  height:100%;
+  display:block;
+}
