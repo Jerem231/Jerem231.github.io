@@ -393,12 +393,14 @@ section {
     text-align: justify;
 }
 
-.project-preview > div.logos {
+.project-preview > div.logos,
+.project-preview .left-block > div.logos {
     margin-left: 72px;
     padding-left: 12px;
     display: flex;
     flex-direction: row;
     column-gap: 20px;
+    margin-bottom: 20px;
 }
 
 #featured-projects .project-preview#sphere .academic-background .wrapper {
