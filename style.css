@@ -513,6 +513,16 @@ section {
 
     .project-preview > p {
         font-size: 1.4rem;
+        padding: 0 !important;
+    }
+
+    #featured-projects > .block h3 {
+        margin-top: 35vh;
+    }
+
+    #featured-projects .project-preview {
+        margin-top: 50vh;
+        width: 100%;
     }
 }
 
@@ -539,8 +549,16 @@ section {
         font-size: 3.5rem;
     }
 
+    .logos {
+        margin-left: 0 !important;
+    }
+
     #featured-projects > .block h3 span {
         width: fit-content !important;
+    }
+
+    .project-preview > p {
+        font-size: 1.2rem;
     }
 }
 
