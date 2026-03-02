@@ -404,6 +404,35 @@ section {
     margin-bottom: 20px;
 }
 
+.project-preview > button.see-more-btn {
+    margin: 10px;
+    padding: 12px;
+    border-radius: 22px;
+    font-weight: 800;
+    color: var(--text-color);
+    background: rgb(87 93 151);
+    border: none;
+    font-family: 'Monrope', sans-serif;
+    transition: all ease-in-out 0.4s;
+    width: fit-content !important;
+    margin-right: auto !important;
+}
+
+.see-more-btn:hover {
+    background: rgb(93, 103, 188);
+}
+
+.see-more-modal video {
+    width: calc(100% - 20px * 2);
+    margin: 0 auto;
+}
+
+.see-more-modal > h4 {
+    font-family: 'Monrope', sans-serif;
+    text-transform: uppercase;
+    font-size: 2rem;
+}
+
 #featured-projects .project-preview#sphere .academic-background .wrapper {
     width: 100%;
 }
@@ -437,6 +466,56 @@ section {
 
 
 /* mobile version */
+@media (max-width: 1024px) {
+    #featured-projects > .block h3 {
+        font-size: 8rem;
+    }
+
+    .project-preview > h4, 
+    .project-preview .left-block > h4 {
+        font-size: 3.5rem;
+    }
+
+    .project-preview:hover > h4, 
+    .project-preview:hover .left-block > h4 {
+        font-size: 4.5rem;
+    }
+
+    #featured-projects .project-preview#sphere .horizontal-wrapper {
+        flex-direction: column;
+    }
+
+    #featured-projects .project-preview#sphere .horizontal-wrapper > * {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #featured-projects > .block h3 {
+        font-size: 6rem;
+    }
+
+    #featured-projects,
+    .project-preview,
+    #featured-projects > .block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .project-preview > *:not(img),
+    #featured-projects > * {
+        width: calc(100% - 20px) !important;
+        margin-left: 10px;
+        margin-right: 10px;
+        max-width: unset !important;
+    }
+
+    .project-preview > p {
+        font-size: 1.4rem;
+    }
+}
+
 @media (max-width: 560px) {
     #home .text {
         margin: 0 12px;
@@ -450,6 +529,18 @@ section {
     }
     #contact form {
         width: 80%;
+    }
+
+    #featured-projects > .block h3 {
+        margin-left: 0 !important;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        font-size: 3.5rem;
+    }
+
+    #featured-projects > .block h3 span {
+        width: fit-content !important;
     }
 }
 

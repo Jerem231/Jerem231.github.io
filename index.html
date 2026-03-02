@@ -32,11 +32,6 @@
     <script src="toolbox.bundle.js"></script>
 </head>
 
-<!-- 
-mecha modeling en identity
-env
-  -->
-
 <body>
     <section id="home">
         <div class="text">
@@ -110,10 +105,12 @@ env
                     <img src="assets/logos/Logo_White/MARI.png" height="40px" id="mari-logo"/>
                     <img src="assets/logos/Logo_White/arnold.png" height="40px" id="arnold-logo"/>
                 </div>
-
+                
                 <video autoplay loop muted preload="auto" data-preload>
                     <source src="assets/data/NEW/watch_video.mp4" type="video/mp4">
                 </video>
+
+                <button class="see-more-btn" onclick="see_more_watch()">See More ></button>
             </div>
         </div>
         <div class="block modeling">
@@ -176,7 +173,7 @@ env
             </div>
             
             <div class="project-preview" id="sphere">
-                <h4>"Sphere" Environment </h4>
+                <h4>Sphere Environment </h4>
                 
                 <div class="horizontal-wrapper">
                     <div class="left-block">
@@ -266,7 +263,7 @@ env
                 <h4>Helmet Integration</h4>
 
                 <p>
-                    The goal for this project was to integrate a 3D object into a live footage. I shot the video and took a 360° image for the HDRI, modeled and texture the helmet, and then tracked the head to replace the helmet on stage with the cgi helmet. A lot of cleaning was necessary for the background, so did some clean plates and bg reconstruction.
+                    The goal for this project was to integrate a 3D object into a live footage. I shot the video and took a 360° image for the HDRI, modeled and textured the helmet, and then tracked the head to replace the helmet on stage with the cgi helmet. A lot of cleaning was necessary for the background, it's why I did some clean plates and background reconstruction.
                 </p>
 
                 <div class="logos">
@@ -285,7 +282,7 @@ env
                 <h4>Greenscreen Keying</h4>
 
                 <p>
-                    This is a more advanced project focused on keying. The main difficulties were about the semi transparent dress of the actress, the jewels, the sword, and the hair moving with the wind. After fully removing the greenscreen, I integrated her in a matte painting that was not done by me. And I then did the color grading.
+                    This comp project was about replacing an actor from a movie shot with one of my friend. It required to analyze the lighting, the camera angle and the timing. It was mainly focused on greenscreen keying and integration, with some final adjustments like background reconstruction and color grading.
                 </p>
 
                 <div class="logos">
@@ -298,10 +295,10 @@ env
             </div>
 
             <div class="project-preview" id="music-clip-compositing">
-                <h4>Comp Integration</h4>
+                <h4>Greenscreen Keying</h4>
 
                 <p>
-                    This comp project was about replacing an actor from a movie shot with one of my friend. It required to analyze the lighting, the camera angle and the timing. It was mainly focused on greenscreen keying and integration, with some final adjustments like background reconstruction and color grading.
+                    This is a more advanced project focused on keying. The main difficulties were about the semi transparent dress of the actress, the jewels, the sword, and the hair moving with the wind which made it more challenging. After fully removing the greenscreen, I integrated her in a matte painting that was done during a group project, and then did the color grading.
                 </p>
                 
                 <div class="logos">
@@ -360,6 +357,20 @@ env
         <div class="loader-info" id="loader_info_text">Preparing assets...</div>
     </div>
 
+    <template id="watch-see-more">
+        <div class="watch-see-more see-more-modal">
+            <h4>Audemars Piguet Watch</h4>
+
+            <video autoplay loop muted>
+                <source src="assets/data/watch_showcase.mp4" type="video/mp4">
+            </video>
+
+            <video autoplay loop muted>
+                <source src="assets/data/watch_modeling.mp4" type="video/mp4">
+            </video>
+        </div>
+    </template>
+
 </body>
 
 <script type="importmap">
@@ -382,6 +393,17 @@ env
 
     const DEBOUNCE_MS = 150; // refresh rate for resize events
     let _resizeTimeout = null;
+
+    function see_more_watch() {
+        let box = document.querySelector("template#watch-see-more").content.cloneNode(true)
+        new PopUp({
+            content: box,
+            buttons: [
+                { label: 'Close', class_name: 'next-button'}
+            ]
+        }).open();
+    }
+
     function _handleResizeFinal() {
         resize();
         onScroll();
