@@ -2,8 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
-    --bg-color: #110f0f;
-    --bg-popup: rgba(94, 95, 96, 0.518);
+    --bg-color: hsl(0, 6%, 6%);
+    --bg-popup: rgba(13, 15, 36, 0.567);
     --text-color: #d9e6f8;
     --primary-color: rgb(120,160,255);
 }
