@@ -86,7 +86,7 @@
                 </div>
 
                 <div class="viewport" id="mecha-model"></div>
-                <video autoplay loop muted preload="auto" data-preload>
+                <video autoplay playsinline loop muted preload="auto" data-preload>
                     <source src="/assets/data/mecha_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -106,7 +106,7 @@
                     <img src="assets/logos/Logo_White/arnold.png" height="40px" id="arnold-logo"/>
                 </div>
                 
-                <video autoplay loop muted preload="auto" data-preload>
+                <video autoplay playsinline loop muted preload="auto" data-preload>
                     <source src="assets/data/NEW/watch_video.mp4" type="video/mp4">
                 </video>
 
@@ -135,7 +135,7 @@
                     <img src="assets/logos/Logo_White/Maya-Logo.png" height="40px" id="maya-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/spaceship_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -151,7 +151,7 @@
                     <img src="assets/logos/Logo_White/ZBrush-Logo.png" height="40px" id="zbrush-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/palpatine_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -167,7 +167,7 @@
                     <img src="assets/logos/Logo_White/ZBrush-Logo.png" height="40px" id="zbrush-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/body_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -208,7 +208,7 @@
                     <!-- <img src="assets/logos/Logo_White/arnold.png" height="40px" id="arnold-logo"/> -->
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/flamethrower_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -227,7 +227,7 @@
                     <img src="assets/logos/Logo_White/karma.png" height="40px" id="karma-logo"/> </span>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/mecha2_modeling.mp4" type="video/mp4">
                 </video>
             </div>
@@ -250,7 +250,7 @@
                     <img src="/assets/data/env_layout_modeling.png" type="video/mp4">
                 </div> -->
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/NEW/Render_Final_Video_Breakdown.mp4" type="video/mp4">
                 </video>
             </div>
@@ -273,7 +273,7 @@
                     <img src="assets/logos/Logo_White/arnold.png" height="40px" id="arnold-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/helmet_compositing.mp4" type="video/mp4">
                 </video>
             </div>
@@ -289,7 +289,7 @@
                     <img src="assets/logos/Logo_White/nuke.png" height="40px" id="nuke-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/the_boys_compositing.mp4" type="video/mp4">
                 </video>
             </div>
@@ -306,7 +306,7 @@
                     <img src="assets/logos/Logo_White/Photoshop-logo.png" height="40px" id="photoshop-logo"/>
                 </div>
 
-                <video autoplay loop muted preload="metadata">
+                <video autoplay playsinline loop muted preload="metadata">
                     <source src="/assets/data/music_clip_compositing.mp4" type="video/mp4">
                 </video>
             </div>
@@ -361,13 +361,17 @@
         <div class="watch-see-more see-more-modal">
             <h4>Audemars Piguet Watch</h4>
 
-            <video autoplay loop muted>
+            <h5>Modeling</h5>
+            <video autoplay playsinline loop muted>
+                <source src="assets/data/watch_modeling.mp4" type="video/mp4">
+            </video>
+
+
+            <h5>Texturing</h5>
+            <video autoplay playsinline loop muted>
                 <source src="assets/data/watch_showcase.mp4" type="video/mp4">
             </video>
 
-            <video autoplay loop muted>
-                <source src="assets/data/watch_modeling.mp4" type="video/mp4">
-            </video>
         </div>
     </template>
 
@@ -631,8 +635,8 @@
 
         for (const el of items) {
             if (isMobile) {
-            el.style.transform = `translate3d(0px, 0px, 0px)`;
-            continue;
+                el.style.transform = `translate3d(0px, 0px, 0px)`;
+                continue;
             }
 
             const r = el.getBoundingClientRect();
