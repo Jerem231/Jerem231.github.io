@@ -537,6 +537,10 @@ section {
         max-width: unset !important;
     }
 
+    .project-preview > img {
+        min-width: 80%;
+    }
+
     .project-preview .left-block > p,
     .project-preview > p {
         font-size: 1.4rem;
@@ -550,6 +554,14 @@ section {
 
     .description p {
         text-align: justify;
+    }
+
+    #featured-projects .project-preview > video {
+        width: 100vw !important;
+        min-height: 50vh;
+        object-fit: cover;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 }
 
@@ -576,7 +588,13 @@ section {
         font-size: 3rem;
     }
 
-    .project-preview > h4, .project-preview .left-block > h4 {
+    .project-preview > h4, 
+    .project-preview .left-block > h4 {
+        font-size: 2rem;
+    }
+
+    .project-preview:hover > h4, 
+    .project-preview:hover .left-block > h4 {
         font-size: 2rem;
     }
 
